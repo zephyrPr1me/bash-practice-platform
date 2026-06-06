@@ -34,6 +34,8 @@ declare global {
         initDataUnsafe: {
           user?: TelegramUser;
         };
+        colorScheme?: 'light' | 'dark';
+        isDarkMode?: boolean;
         themeParams: {
           bg_color?: string;
           text_color?: string;

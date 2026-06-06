@@ -21,15 +21,15 @@ const LearningPath: React.FC<LearningPathProps> = ({
   isLocked = false,
   onClick
 }) => {
-  const progressPercent = (completedLessons / totalLessons) * 100;
+  const progressPercent = totalLessons > 0 ? (completedLessons / totalLessons) * 100 : 0;
 
   return (
     <div
       onClick={isLocked ? undefined : onClick}
-      className={`p-5 mb-4 rounded-2xl border transition-all duration-200 ${
+      className={`p-5 mb-4 rounded-3xl border transition-all duration-200 ${
         isLocked
-          ? 'bg-gray-100 border-gray-200 opacity-60 cursor-not-allowed'
-          : 'bg-[var(--tg-theme-bg-color)] border-[var(--tg-theme-secondary-bg-color)] cursor-pointer active:scale-[0.98] hover:shadow-md'
+          ? 'bg-[var(--surface-muted)] border-[var(--border)] opacity-80 cursor-not-allowed'
+          : 'bg-[var(--card-bg)] border-[var(--border)] cursor-pointer active:scale-[0.98] shadow-card'
       }`}
     >
       <div className="flex items-center gap-4 mb-4">
@@ -41,16 +41,26 @@ const LearningPath: React.FC<LearningPathProps> = ({
             <h3 className="font-bold text-lg">{title}</h3>
             {isLocked && <Lock size={16} className="text-gray-500" />}
           </div>
-          <p className="text-sm opacity-70 leading-snug">{description}</p>
+          <p className="text-sm text-[var(--muted)] leading-snug">{description}</p>
         </div>
-        {!isLocked && <ChevronRight size={20} className="opacity-40" />}
+        {!isLocked && <ChevronRight size={20} className="text-[var(--muted)]" />}
       </div>
 
       <div className="mt-4">
         <ProgressBar progress={progressPercent} className="mb-2" />
-        <div className="flex justify-between text-xs font-medium opacity-60">
-          <span>{completedLessons} / {totalLessons} lessons completed</span>
-          <span>{Math.round(progressPercent)}%</span>
+        <div className="flex justify-between text-xs font-medium text-[var(--muted)] items-center">
+          <span>{completedLessons} / {totalLessons} уроков</span>
+          <div className="flex items-center gap-3">
+            <span>{Math.round(progressPercent)}%</span>
+            {!isLocked && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onClick(); }}
+                className="text-sm bg-[var(--accent)] text-[var(--accent-foreground)] px-3 py-1 rounded-full"
+              >
+                {completedLessons > 0 ? 'Продолжить' : 'Начать'}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

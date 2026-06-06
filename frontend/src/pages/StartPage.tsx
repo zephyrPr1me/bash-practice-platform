@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import ContinueLearning from '../components/ContinueLearning';
 import LearningPath from '../components/LearningPath';
+import Achievements from '../components/Achievements';
 import { getUserProgress } from '../api/userApi';
 import type { TelegramUser, UserProgress } from '../types';
-import { Terminal } from 'lucide-react';
+ 
 
 const StartPage: React.FC = () => {
   const [user, setUser] = useState<TelegramUser | null>(null);
@@ -47,15 +48,15 @@ const StartPage: React.FC = () => {
 
   if (loading || !user || !progress) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-[var(--tg-theme-bg-color)]">
-        <div className="w-12 h-12 border-4 border-[var(--tg-theme-button-color)] border-t-transparent rounded-full animate-spin"></div>
-        <p className="mt-4 font-medium opacity-70">Loading your progress...</p>
+      <div className="flex flex-col items-center justify-center h-screen bg-[var(--page-bg)] text-[var(--text-color)]">
+        <div className="w-12 h-12 border-4 border-[var(--accent)] border-t-transparent rounded-full animate-spin"></div>
+        <p className="mt-4 font-medium text-[var(--muted)]">Загрузка прогресса...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[var(--tg-theme-bg-color)] text-[var(--tg-theme-text-color)] pb-10">
+    <div className="min-h-screen bg-[var(--page-bg)] text-[var(--text-color)] pb-10">
       <Header
         name={user.first_name}
         photoUrl={user.photo_url}
@@ -71,12 +72,12 @@ const StartPage: React.FC = () => {
         />
 
         <div className="mt-8">
-          <h2 className="text-xl font-extrabold mb-5 px-1">Learning Paths</h2>
+          <h2 className="text-xl font-extrabold mb-5 px-1">Выбери путь</h2>
 
           <LearningPath
-            title="Bash Basics"
-            icon={<Terminal className="text-green-500" size={32} />}
-            description="Master the terminal: navigation, files, and permissions"
+            title="Основы Bash"
+            icon={<span className="text-2xl">🐧</span>}
+            description="Научись работать в терминале: навигация, файлы, права"
             totalLessons={progress.bashTotal}
             completedLessons={progress.bashCompleted}
             onClick={() => navigate('/path/bash')}
@@ -84,8 +85,8 @@ const StartPage: React.FC = () => {
 
           <LearningPath
             title="Linux Filesystem"
-            icon="📁"
-            description="Deep dive into the Linux directory structure"
+            icon={<span className="text-2xl">📁</span>}
+            description="Глубокое изучение структуры директорий Linux"
             totalLessons={15}
             completedLessons={0}
             isLocked={true}
@@ -94,13 +95,15 @@ const StartPage: React.FC = () => {
 
           <LearningPath
             title="Networking Essentials"
-            icon="🌐"
-            description="Learn about curl, ssh, and basic networking"
+            icon={<span className="text-2xl">🌐</span>}
+            description="Изучи curl, ssh и основы сетей"
             totalLessons={8}
             completedLessons={0}
             isLocked={true}
             onClick={() => {}}
           />
+
+          <Achievements />
         </div>
       </div>
     </div>

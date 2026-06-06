@@ -12,10 +12,10 @@ const PlaceholderPage: React.FC<PlaceholderPageProps> = ({ title }) => {
   const id = params.id || params.pathId;
 
   return (
-    <div className="flex flex-col min-h-screen bg-[var(--tg-theme-bg-color)] text-[var(--tg-theme-text-color)] p-6">
+    <div className="flex flex-col min-h-screen bg-[var(--page-bg)] text-[var(--text-color)] p-6">
       <button
         onClick={() => navigate('/')}
-        className="flex items-center gap-2 mb-8 opacity-70 hover:opacity-100 transition-opacity"
+        className="flex items-center gap-2 mb-8 text-[var(--muted)] hover:text-[var(--text-color)] transition-colors"
       >
         <ArrowLeft size={20} />
         <span>Back to Home</span>
