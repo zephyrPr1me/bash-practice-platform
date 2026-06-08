@@ -1,11 +1,18 @@
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import StartPage from './pages/StartPage';
+import PlaceholderPage from './pages/PlaceholderPage';
+import './App.css';
 
 function App() {
   return (
-    <>
-      <h1 className="text-3xl font-bold text-blue-500">Tailwind работает!</h1>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<StartPage />} />
+        <Route path="/lesson/:id" element={<PlaceholderPage title="Lesson Content" />} />
+        <Route path="/path/:pathId" element={<PlaceholderPage title="Learning Path" />} />
+      </Routes>
+    </Router>
+  );
 }
 
-export default App
+export default App;
